@@ -1,0 +1,21 @@
+{
+  "name": "the-bio",
+  "version": "1.0.0",
+  "description": "Created by Abdallah Syam",
+  "main": "index.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "fabric": "^5.3.0",
+    "jsdom": "^24.1.0",
+    "mongoose": "^8.4.1",
+    "puppeteer": "^22.10.0",
+    "utf8": "^3.0.0"
+  }
+}
