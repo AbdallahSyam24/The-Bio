@@ -2,6 +2,8 @@ const puppeteer = require('puppeteer');
 
 let engine = null;
 
+const logger = require('./logger');
+
 const fetchNewsURLsData = async () => {
     console.log('********************************\nFetching URLs...');
     const browser = await puppeteer.launch();
@@ -60,6 +62,7 @@ const getBody = async (urls = []) => {
 
 const monitorData = async () => {
     return getURLs()
+        // .then(urls => console.log(urls))
         .then(urls => getBody(urls))
         .catch(e => console.log(e));
 }
@@ -80,11 +83,51 @@ const start = async () => {
     } else {
         console.log('Please set an engine...');
     }
-};
+}
 
 const setEngine = e => engine = e;
 
+
+const amazon = async (url) => {
+    try {
+        engine = require('../api/engine/api.Amazon');
+
+        console.log('\nFetching Amazon price...');
+        const browser = await puppeteer.launch();
+        const page = await browser.newPage();
+        await page.goto(url, { waitUntil: 'networkidle2' });
+        const data = await engine.fetchPriceContent(page);
+        // console.log(data);
+
+        await browser.close();
+        // engine.insertPrice({ ...data, 'url': url });
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+
+const crypto = async (url) => {
+    try {
+        engine = require('../api/engine/api.crypto');
+
+        console.log('\nFetching crypto price...');
+        const browser = await puppeteer.launch();
+        const page = await browser.newPage();
+        await page.goto(url, { waitUntil: 'networkidle2' });
+        const data = await engine.fetchPriceContent(page);
+        // console.log(data);
+
+        await browser.close();
+        // engine.insertPrice({ ...data, 'url': url });
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 module.exports = {
     start,
-    setEngine
+    setEngine,
+    amazon,
+    crypto
 }
