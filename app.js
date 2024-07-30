@@ -9,7 +9,10 @@ const monitor = require('./assets/monitor');
 // const engine = require('./api/engine/api.AlJazeera');
 
 // AlMamlaka
-const engine = require('./api/engine/api.AlMamlaka');
+// const engine = require('./api/engine/api.AlMamlaka');
+
+// CNN
+const engine = require('./api/engine/api.CNN');
 
 
 monitor.setEngine(engine);
