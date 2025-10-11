@@ -8,7 +8,14 @@ const fetchNewsURLsData = async () => {
     console.log('********************************\nFetching URLs...');
     const browser = await puppeteer.launch({
         executablePath: process.env.PUPPETEER_EXECUTABLE_PATH || '/usr/bin/chromium',
-        args: ['--disable-setuid-sandbox'],
+        args: [
+            "--no-sandbox",
+            "--disable-setuid-sandbox",
+            "--disable-dev-shm-usage",
+            "--disable-gpu",
+            "--no-zygote",
+            "--single-process"
+        ],
     });
     const page = await browser.newPage();
     await page.goto(engine.URL, { waitUntil: 'networkidle2' });
@@ -34,7 +41,14 @@ const fetchNewsContentData = async (url) => {
     console.log('\nFetching News content...');
     const browser = await puppeteer.launch({
         executablePath: process.env.PUPPETEER_EXECUTABLE_PATH || '/usr/bin/chromium',
-        args: ['--disable-setuid-sandbox'],
+        args: [
+            "--no-sandbox",
+            "--disable-setuid-sandbox",
+            "--disable-dev-shm-usage",
+            "--disable-gpu",
+            "--no-zygote",
+            "--single-process"
+        ],
     });
     const page = await browser.newPage();
     await page.goto(url, { waitUntil: 'networkidle2' });
@@ -103,7 +117,14 @@ const amazon = async (url) => {
         console.log('\nFetching Amazon price...');
         const browser = await puppeteer.launch({
             executablePath: process.env.PUPPETEER_EXECUTABLE_PATH || '/usr/bin/chromium',
-            args: ['--disable-setuid-sandbox'],
+            args: [
+                "--no-sandbox",
+                "--disable-setuid-sandbox",
+                "--disable-dev-shm-usage",
+                "--disable-gpu",
+                "--no-zygote",
+                "--single-process"
+            ],
         });
         const page = await browser.newPage();
         await page.goto(url, { waitUntil: 'networkidle2' });
@@ -125,7 +146,14 @@ const crypto = async (url) => {
         console.log('\nFetching crypto price...');
         const browser = await puppeteer.launch({
             executablePath: process.env.PUPPETEER_EXECUTABLE_PATH || '/usr/bin/chromium',
-            args: ['--disable-setuid-sandbox'],
+            args: [
+                "--no-sandbox",
+                "--disable-setuid-sandbox",
+                "--disable-dev-shm-usage",
+                "--disable-gpu",
+                "--no-zygote",
+                "--single-process"
+            ],
         });
         const page = await browser.newPage();
         await page.goto(url, { waitUntil: 'networkidle2' });
