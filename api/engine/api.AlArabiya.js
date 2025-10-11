@@ -1,21 +1,23 @@
-const almamlaka = require('../../services/AlMamlaka/AlMamlaka.controller');
+const alarabiya = require('../../services/AlArabiya/AlArabiya.controller');
 const { getDataURL } = require('../api.poster');
+const { containsHTMLTags } = require('../../assets/helper');
 
-const URL = 'https://www.almamlakatv.com/categories/12-%D8%A7%D9%84%D8%B9%D8%A7%D9%84%D9%85';
+const URL = 'https://www.alarabiya.net/latest-news';
 
 const fetchNewsURLs = async (page) => {
+    await page.screenshot({ path: 'test.png' })
     return await page.evaluate(() => {
-        return [...document.querySelectorAll('.mtv-section .story a')]
-            .map(a => a.href);
+        return [...document.querySelectorAll('.sectionHero_thumb .sectionHero_latest .sectionHero_element ')]
+            .map(a => a.innerHTML);
     });
 }
 
 const fetchNewsContent = async (page) => {
     return await page.evaluate(() => {
         return {
-            'title': [...document.querySelectorAll('.article-title')]
+            'title': [...document.querySelectorAll('.headingInfo_title')]
                 .map(title => title.innerHTML)[0].trim(),
-            'body': [...document.querySelectorAll('.article-body p')]
+            'body': [...document.querySelectorAll('#body-text .paragraph')]
                 .map(body => body.innerHTML.replaceAll(/<\/?[^>]+(>|$)/gi, ""))
                 .join(" ")
                 .trim()
@@ -27,14 +29,14 @@ const insertNews = async (obj) => {
     const dataURL = await getDataURL(obj.title);
     obj = { ...obj, dataURL };
 
-    almamlaka.getLastTitle()
+    alarabiya.getLastTitle()
         .then(lastTitle => {
             if (lastTitle) {
                 if (lastTitle.title != obj.title) {
-                    almamlaka.create(obj);
+                    alarabiya.create(obj);
                 }
             } else {
-                almamlaka.create(obj);
+                alarabiya.create(obj);
             }
         })
         .catch(e => {

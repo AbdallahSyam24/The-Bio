@@ -69,6 +69,8 @@ const monitorData = async () => {
 
 const start = async () => {
     if (engine) {
+        await monitorData();
+        return;
         while (true) {
             // let data = await monitorData();
             // data = data[0];
@@ -78,7 +80,7 @@ const start = async () => {
             // Wait for a specific interval before checking again (1 hour)
             // await new Promise(resolve => setTimeout(resolve, 1800000));
             // (.25 hour)
-            await new Promise(resolve => { setTimeout(resolve, 450000) });
+            // await new Promise(resolve => { setTimeout(resolve, 450000) });
         }
     } else {
         console.log('Please set an engine...');
