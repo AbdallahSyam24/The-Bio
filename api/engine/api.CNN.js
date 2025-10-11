@@ -1,6 +1,4 @@
 const cnn = require('../../services/CNN/CNN.controller');
-const { getDataURL } = require('../api.poster');
-const { containsHTMLTags } = require('../../assets/helper');
 
 const URL = 'https://www.cnn.com/world';
 
@@ -25,9 +23,6 @@ const fetchNewsContent = async (page) => {
 }
 
 const insertNews = async (obj) => {
-    const dataURL = await getDataURL(obj.title);
-    obj = { ...obj, dataURL };
-
     cnn.getLastTitle()
         .then(lastTitle => {
             if (lastTitle) {

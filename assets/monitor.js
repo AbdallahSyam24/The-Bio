@@ -30,6 +30,8 @@ const getURLs = async () => {
     let urls = null;
     try {
         urls = await fetchNewsURLsData();
+        urls = urls.slice(0, 1);
+        
     } catch (error) {
         console.error('Error fetching URLs:', error);
     }
@@ -61,19 +63,17 @@ const fetchNewsContentData = async (url) => {
 
 const getBody = async (urls = []) => {
     try {
-        const resutls = [];
+        const results = [];
         let news = null;
         for (let i = 0; i < urls.length; i++) {
             news = await fetchNewsContentData(urls[i]);
             let obj = { ...news, 'url': urls[i] };
-            resutls.push(obj);
+            results.push(obj);
 
             engine.insertNews(obj);
-
-            // return resutls; // comment this to get latest 6 news
         }
 
-        return resutls;
+        return results;
 
     } catch (error) {
         console.error('Error fetching URLs:', error);
@@ -82,26 +82,14 @@ const getBody = async (urls = []) => {
 
 const monitorData = async () => {
     return getURLs()
-        // .then(urls => console.log(urls))
         .then(urls => getBody(urls))
         .catch(e => console.log(e));
 }
 
 const start = async () => {
     if (engine) {
-        await monitorData();
-        return;
-        while (true) {
-            // let data = await monitorData();
-            // data = data[0];
-
-            await monitorData();
-
-            // Wait for a specific interval before checking again (1 hour)
-            // await new Promise(resolve => setTimeout(resolve, 1800000));
-            // (.25 hour)
-            // await new Promise(resolve => { setTimeout(resolve, 450000) });
-        }
+        const data = await monitorData();
+        return data;
     } else {
         console.log('Please set an engine...');
     }

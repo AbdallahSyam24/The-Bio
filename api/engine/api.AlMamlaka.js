@@ -1,5 +1,4 @@
 const almamlaka = require('../../services/AlMamlaka/AlMamlaka.controller');
-const { getDataURL } = require('../api.poster');
 
 const URL = 'https://www.almamlakatv.com/categories/12-%D8%A7%D9%84%D8%B9%D8%A7%D9%84%D9%85';
 
@@ -24,9 +23,6 @@ const fetchNewsContent = async (page) => {
 }
 
 const insertNews = async (obj) => {
-    const dataURL = await getDataURL(obj.title);
-    obj = { ...obj, dataURL };
-
     almamlaka.getLastTitle()
         .then(lastTitle => {
             if (lastTitle) {

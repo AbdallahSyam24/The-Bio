@@ -1,6 +1,4 @@
 const alarabiya = require('../../services/AlArabiya/AlArabiya.controller');
-const { getDataURL } = require('../api.poster');
-const { containsHTMLTags } = require('../../assets/helper');
 
 const URL = 'https://www.alarabiya.net/latest-news';
 
@@ -26,9 +24,6 @@ const fetchNewsContent = async (page) => {
 }
 
 const insertNews = async (obj) => {
-    const dataURL = await getDataURL(obj.title);
-    obj = { ...obj, dataURL };
-
     alarabiya.getLastTitle()
         .then(lastTitle => {
             if (lastTitle) {
