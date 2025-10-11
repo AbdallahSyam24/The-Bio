@@ -3,7 +3,7 @@ require('./database/DB');
 const monitor = require('./assets/monitor');
 
 // Roya
-// const engine = require('./api/engine/api.Roya');
+const engine = require('./api/engine/api.Roya');
 
 // AlJazeera
 // const engine = require('./api/engine/api.AlJazeera');
@@ -12,7 +12,10 @@ const monitor = require('./assets/monitor');
 // const engine = require('./api/engine/api.AlMamlaka');
 
 // CNN
-const engine = require('./api/engine/api.CNN');
+// const engine = require('./api/engine/api.CNN');
+
+// AlArabiya
+// const engine = require('./api/engine/api.AlArabiya');
 
 
 monitor.setEngine(engine);

@@ -1,6 +1,4 @@
 const roya = require('../../services/Roya/Roya.controller');
-const { getDataURL } = require('../api.poster');
-const { containsHTMLTags } = require('../../assets/helper');
 
 const URL = 'https://royanews.tv/section/9';
 
@@ -17,7 +15,6 @@ const fetchNewsContent = async (page) => {
             'title': [...document.querySelectorAll('.news_body .news_main_title_mob h1')]
                 .map(title => title.innerHTML)[0],
             'body': [...document.querySelectorAll('.Newsbody p')]
-                .filter(p => !containsHTMLTags(p.innerHTML))
                 .map(body => body.innerHTML)
                 .join(" ")
                 .toString()
@@ -26,9 +23,6 @@ const fetchNewsContent = async (page) => {
 }
 
 const insertNews = async (obj) => {
-    const dataURL = await getDataURL(obj.title);
-    obj = { ...obj, dataURL };
-
     roya.getLastTitle()
         .then(lastTitle => {
             if (lastTitle) {
