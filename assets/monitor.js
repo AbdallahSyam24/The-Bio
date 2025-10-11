@@ -6,7 +6,9 @@ const logger = require('./logger');
 
 const fetchNewsURLsData = async () => {
     console.log('********************************\nFetching URLs...');
-    const browser = await puppeteer.launch();
+    const browser = await puppeteer.launch({
+        args: ['--no-sandbox', '--disable-setuid-sandbox']
+    });
     const page = await browser.newPage();
     await page.goto(engine.URL, { waitUntil: 'networkidle2' });
     const data = await engine.fetchNewsURLs(page);
@@ -29,7 +31,9 @@ const getURLs = async () => {
 
 const fetchNewsContentData = async (url) => {
     console.log('\nFetching News content...');
-    const browser = await puppeteer.launch();
+    const browser = await puppeteer.launch({
+        args: ['--no-sandbox', '--disable-setuid-sandbox']
+    });
     const page = await browser.newPage();
     await page.goto(url, { waitUntil: 'networkidle2' });
     const data = await engine.fetchNewsContent(page);
@@ -95,7 +99,9 @@ const amazon = async (url) => {
         engine = require('../api/engine/api.Amazon');
 
         console.log('\nFetching Amazon price...');
-        const browser = await puppeteer.launch();
+        const browser = await puppeteer.launch({
+            args: ['--no-sandbox', '--disable-setuid-sandbox']
+        });
         const page = await browser.newPage();
         await page.goto(url, { waitUntil: 'networkidle2' });
         const data = await engine.fetchPriceContent(page);
@@ -114,7 +120,9 @@ const crypto = async (url) => {
         engine = require('../api/engine/api.crypto');
 
         console.log('\nFetching crypto price...');
-        const browser = await puppeteer.launch();
+        const browser = await puppeteer.launch({
+            args: ['--no-sandbox', '--disable-setuid-sandbox']
+        });
         const page = await browser.newPage();
         await page.goto(url, { waitUntil: 'networkidle2' });
         const data = await engine.fetchPriceContent(page);
