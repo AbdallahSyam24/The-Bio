@@ -8,29 +8,29 @@ const { getMemory } = require("../controller/api.memory");
 
 
 routes.route("/getLatest/:engine")
-.get(async (req, res) => {
-    const engineName = req.params.engine;
-    const engine = getEngine(engineName);
+    .get(async (req, res) => {
+        const engineName = req.params.engine;
+        const engine = getEngine(engineName);
 
-    if (engine.error) {
-        return res.status(400).json({ error: engine.error });
-    }
+        if (engine.error) {
+            return res.status(400).json({ error: engine.error });
+        }
 
-    monitor.setEngine(engine);
-    const data = await monitor.start();
+        monitor.setEngine(engine);
+        const data = await monitor.start();
 
-    return res.status(200).json({ data });
-});
+        const { title, type } = data[0];
 
-routes.route("/checkLatest")
-.post(async (req, res) => {
-    const { title, type } = req.body;
-    try {
-        const result = await getMemory(title, type);
-        return res.status(200).json(result);
-    } catch (err) {
-        return res.status(500).json({ error: 'Internal Server Error' });
-    }
-});
+        try {
+            const result = await getMemory(title, type);
+            if (result.result) {
+                return res.status(200).json({ message: 'No new updates', data: [] });
+            } else {
+                return res.status(200).json({ data });
+            }
+        } catch (err) {
+            return res.status(500).json({ error: 'Internal Server Error' });
+        }
+    });
 
 module.exports = routes;
