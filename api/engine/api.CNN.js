@@ -17,7 +17,8 @@ const fetchNewsContent = async (page) => {
             'body': [...document.querySelectorAll('.article__main .paragraph')]
                 .map(body => body.innerHTML.replaceAll(/<\/?[^>]+(>|$)/gi, ""))
                 .join(" ")
-                .trim()
+                .trim(),
+            'type': 'cnn'
         };
     });
 }

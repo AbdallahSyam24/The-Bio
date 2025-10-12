@@ -17,7 +17,8 @@ const fetchNewsContent = async (page) => {
             'body': [...document.querySelectorAll('.Newsbody p')]
                 .map(body => body.innerHTML)
                 .join(" ")
-                .toString()
+                .toString(),
+            'type': 'roya'
         };
     });
 }

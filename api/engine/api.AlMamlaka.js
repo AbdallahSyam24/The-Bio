@@ -17,7 +17,8 @@ const fetchNewsContent = async (page) => {
             'body': [...document.querySelectorAll('.article-body p')]
                 .map(body => body.innerHTML.replaceAll(/<\/?[^>]+(>|$)/gi, ""))
                 .join(" ")
-                .trim()
+                .trim(),
+            'type': 'almamlaka'
         };
     });
 }
