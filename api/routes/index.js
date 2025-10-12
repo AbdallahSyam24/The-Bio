@@ -1,7 +1,11 @@
 const express = require("express");
 const routes = express.Router();
+
+
 const monitor = require('../../assets/monitor');
 const { getEngine } = require("../../assets/helper");
+const { getMemory } = require("../controller/api.memory");
+
 
 routes.route("/getLatest/:engine")
 .get(async (req, res) => {
@@ -16,8 +20,17 @@ routes.route("/getLatest/:engine")
     const data = await monitor.start();
 
     return res.status(200).json({ data });
-})
+});
 
-
+routes.route("/checkLatest")
+.post(async (req, res) => {
+    const { title, type } = req.body;
+    try {
+        const result = await getMemory(title, type);
+        return res.status(200).json(result);
+    } catch (err) {
+        return res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
 
 module.exports = routes;
