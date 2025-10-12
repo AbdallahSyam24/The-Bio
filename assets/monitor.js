@@ -70,7 +70,7 @@ const getBody = async (urls = []) => {
             let obj = { ...news, 'url': urls[i] };
             results.push(obj);
 
-            engine.insertNews(obj);
+            // engine.insertNews(obj);
         }
 
         return results;
