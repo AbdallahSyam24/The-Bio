@@ -5,7 +5,7 @@ const memory = mongoose.model("agent_memory");
 
 const getMemory = async (title, type) => {
     try {
-        const existing = await memory.findOne({ type });
+        const existing = await memory.findOne({ title, type });
 
         if (existing) {
             existing.title = title;
