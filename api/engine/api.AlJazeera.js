@@ -19,7 +19,8 @@ const fetchNewsContent = async (page) => {
                 .map(body => body.innerHTML.replaceAll(/<\/?[^>]+(>|$)/gi, ""))
                 .map(body => body.replaceAll('&nbsp;', ' '))
                 .join(" ")
-                .toString()
+                .toString(),
+            'type': 'aljazeera'
         };
     });
 }

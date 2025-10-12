@@ -18,7 +18,8 @@ const fetchNewsContent = async (page) => {
             'body': [...document.querySelectorAll('#body-text .paragraph')]
                 .map(body => body.innerHTML.replaceAll(/<\/?[^>]+(>|$)/gi, ""))
                 .join(" ")
-                .trim()
+                .trim(),
+            'type': 'alarabiya'
         };
     });
 }

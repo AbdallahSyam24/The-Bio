@@ -3,9 +3,6 @@ const routes = express.Router();
 const monitor = require('../../assets/monitor');
 const { getEngine } = require("../../assets/helper");
 
-console.log("Dasdas");
-
-
 routes.route("/getLatest/:engine")
 .get(async (req, res) => {
     const engineName = req.params.engine;
@@ -16,9 +13,9 @@ routes.route("/getLatest/:engine")
     }
 
     monitor.setEngine(engine);
-    data = await monitor.start();
+    const data = await monitor.start();
 
-    res.status(200).json({ data });
+    return res.status(200).json({ data });
 })
 
 
