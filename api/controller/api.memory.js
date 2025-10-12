@@ -5,11 +5,15 @@ const memory = mongoose.model("agent_memory");
 
 const getMemory = async (title, type) => {
     try {
-        const existing = await memory.findOne({ title, type });
+        const existing = await memory.findOne({ type });
 
         if (existing) {
-            existing.title = title;
-            await existing.save();
+            if (existing.title != title) {
+                existing.title = title;
+                await existing.save();
+                return { result: false };
+            }
+
             return { result: true };
         } else {
             const newDoc = new memory({ title, type });
