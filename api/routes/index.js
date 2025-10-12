@@ -5,6 +5,7 @@ const routes = express.Router();
 const monitor = require('../../assets/monitor');
 const { getEngine } = require("../../assets/helper");
 const { getMemory } = require("../controller/api.memory");
+const { insertNews } = require("../controller/api.newsController");
 
 
 routes.route("/getLatest/:engine")
@@ -32,5 +33,8 @@ routes.route("/getLatest/:engine")
             return res.status(500).json({ error: 'Internal Server Error' });
         }
     });
+
+routes.route("/addNews")
+.post(insertNews);
 
 module.exports = routes;
