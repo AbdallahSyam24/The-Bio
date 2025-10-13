@@ -20,10 +20,10 @@ routes.route("/getLatest/:engine")
         monitor.setEngine(engine);
         const data = await monitor.start();
 
-        const { title, type } = data[0];
+        const { title, type, url } = data[0];
 
         try {
-            const result = await getMemory(title, type);
+            const result = await getMemory(title, type, url);
             if (result.result) {
                 return res.status(200).json({ message: 'No new updates', data: [] });
             } else {
