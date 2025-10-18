@@ -3,7 +3,7 @@ const noble = require('@abandonware/noble');
 const SMART_LOCK_MAC = '22:B5:38:AF:CD:9E';
 let connectedPeripheral = null;
 
-async function connectToLock() {
+const connectToLock = async () => {
     return new Promise((resolve, reject) => {
         noble.on('stateChange', async (state) => {
             if (state === 'poweredOn') {

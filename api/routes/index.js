@@ -42,8 +42,8 @@ routes.route("/addNews")
 
 
 routes.route("/ttlock")
-    .get('/lock', (req, res) => sendCommand(req, res, 'LOCK'))
-    .get('/unlock', (req, res) => sendCommand(req, res, 'UNLOCK'));
+    .get('/lock', async (req, res) => await sendCommand(req, res, 'LOCK'))
+    .get('/unlock', async (req, res) => await sendCommand(req, res, 'UNLOCK'));
 
 
 module.exports = routes;
