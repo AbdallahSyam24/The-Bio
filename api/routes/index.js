@@ -6,6 +6,7 @@ const monitor = require('../../assets/monitor');
 const { getEngine } = require("../../assets/helper");
 const { getMemory } = require("../controller/api.memory");
 const { insertNews } = require("../controller/api.newsController");
+const { connectToLock, sendCommand } = require("../controller/api.ttlock");
 
 
 routes.route("/getLatest/:engine")
@@ -38,5 +39,11 @@ routes.route("/getLatest/:engine")
 
 routes.route("/addNews")
     .post(insertNews);
+
+
+routes.route("/ttlock")
+    .get('/lock', sendCommand('LOCK'))
+    .get('/unlock', sendCommand('UNLOCK'));
+
 
 module.exports = routes;
