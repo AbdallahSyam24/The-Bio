@@ -6,8 +6,9 @@ const monitor = require('../../assets/monitor');
 const { getEngine } = require("../../assets/helper");
 const { getMemory } = require("../controller/api.memory");
 const { insertNews } = require("../controller/api.newsController");
+const { classifyFolderImages } = require("../controller/api.face");
 
-
+// Route to get the latest data based on the specified engine
 routes.route("/getLatest/:engine")
     .get(async (req, res) => {
         const engineName = req.params.engine;
@@ -36,7 +37,20 @@ routes.route("/getLatest/:engine")
         }
     });
 
+
+// News insertion route
 routes.route("/addNews")
     .post(insertNews);
+
+// Face recognition route
+routes.route("/faceRecognition")
+    .post(async (req, res) => {
+        try {
+            const results = await classifyFolderImages();
+            return res.status(200).json({ results });
+        } catch (err) {
+            return res.status(500).json({ error: 'Internal Server Error' });
+        }
+    });
 
 module.exports = routes;
