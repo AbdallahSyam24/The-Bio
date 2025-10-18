@@ -42,8 +42,8 @@ routes.route("/addNews")
 
 
 routes.route("/ttlock")
-    .get('/lock', sendCommand('LOCK'))
-    .get('/unlock', sendCommand('UNLOCK'));
+    .get('/lock', (req, res) => sendCommand(req, res, 'LOCK'))
+    .get('/unlock', (req, res) => sendCommand(req, res, 'UNLOCK'));
 
 
 module.exports = routes;

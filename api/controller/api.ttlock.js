@@ -27,16 +27,18 @@ async function connectToLock() {
     });
 }
 
-async function sendCommand(command) {
+const sendCommand = async (req, res, command) => {
     if (!connectedPeripheral) await connectToLock();
 
     const { characteristics } = await connectedPeripheral.discoverSomeServicesAndCharacteristicsAsync([], []);
 
     const controlChar = characteristics.find(c => c.properties.includes('write'));
-    if (!controlChar) throw new Error('No writable characteristic found');
+    if (!controlChar) res.status(500).json({ error: 'Control characteristic not found' });
 
     await controlChar.writeAsync(Buffer.from(command), false);
     console.log('Command sent:', command);
+
+    return res.status(200).json({ message: `Command ${command} sent successfully` });
 }
 
 module.exports = { connectToLock, sendCommand };
