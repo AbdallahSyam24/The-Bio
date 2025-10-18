@@ -41,4 +41,4 @@ const sendCommand = async (req, res, command) => {
     return res.status(200).json({ message: `Command ${command} sent successfully` });
 }
 
-module.exports = { connectToLock, sendCommand };
+module.exports = { sendCommand };
