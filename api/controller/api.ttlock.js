@@ -1,6 +1,6 @@
 const noble = require('@abandonware/noble');
 
-const SMART_LOCK_MAC = '2C:CF:67:73:AE:D7';
+const SMART_LOCK_MAC = '22:B5:38:AF:CD:9E';
 let connectedPeripheral = null;
 
 async function connectToLock() {
