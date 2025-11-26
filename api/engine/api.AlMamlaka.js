@@ -13,9 +13,9 @@ const fetchNewsContent = async (page) => {
     return await page.evaluate(() => {
         return {
             'title': [...document.querySelectorAll('.article-title')]
-                .map(title => title.innerHTML.replaceAll(/<\/?[^>]+(>|$)/gi, ""))[0].trim(),
+                .map(title => cleanText(title.innerHTML))[0],
             'body': [...document.querySelectorAll('.article-body p')]
-                .map(body => body.innerHTML.replaceAll(/<\/?[^>]+(>|$)/gi, ""))
+                .map(body => cleanText(body.innerHTML))
                 .join(" ")
                 .trim(),
             'type': 'almamlaka'
