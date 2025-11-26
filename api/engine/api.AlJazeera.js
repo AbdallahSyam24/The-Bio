@@ -14,12 +14,12 @@ const fetchNewsContent = async (page) => {
     return await page.evaluate(() => {
         return {
             'title': [...document.querySelectorAll('.article-header h1')]
-                .map(title => title.innerHTML)[0],
+                .map(title => title.innerHTML.replaceAll(/<\/?[^>]+(>|$)/gi, ""))[0].trim(),
             'body': [...document.querySelectorAll('.wysiwyg  p')]
                 .map(body => body.innerHTML.replaceAll(/<\/?[^>]+(>|$)/gi, ""))
                 .map(body => body.replaceAll('&nbsp;', ' '))
                 .join(" ")
-                .toString(),
+                .trim(),
             'type': 'aljazeera'
         };
     });

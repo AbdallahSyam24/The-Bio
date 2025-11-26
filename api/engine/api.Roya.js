@@ -13,11 +13,11 @@ const fetchNewsContent = async (page) => {
     return await page.evaluate(() => {
         return {
             'title': [...document.querySelectorAll('.news_body .news_main_title_mob h1')]
-                .map(title => title.innerHTML)[0],
+                .map(title => title.innerHTML.replaceAll(/<\/?[^>]+(>|$)/gi, ""))[0].trim(),
             'body': [...document.querySelectorAll('.Newsbody p')]
-                .map(body => body.innerHTML)
+                .map(body => body.innerHTML.replaceAll(/<\/?[^>]+(>|$)/gi, ""))
                 .join(" ")
-                .toString(),
+                .trim(),
             'type': 'roya'
         };
     });

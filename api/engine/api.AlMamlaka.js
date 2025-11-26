@@ -13,7 +13,7 @@ const fetchNewsContent = async (page) => {
     return await page.evaluate(() => {
         return {
             'title': [...document.querySelectorAll('.article-title')]
-                .map(title => title.innerHTML)[0].trim(),
+                .map(title => title.innerHTML.replaceAll(/<\/?[^>]+(>|$)/gi, ""))[0].trim(),
             'body': [...document.querySelectorAll('.article-body p')]
                 .map(body => body.innerHTML.replaceAll(/<\/?[^>]+(>|$)/gi, ""))
                 .join(" ")
