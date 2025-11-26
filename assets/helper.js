@@ -27,7 +27,21 @@ const getEngine = (engine) => {
     return engine;
 }
 
+const cleanText = (str) => {
+    if (!str) return ''; // Safety check for null/undefined
+
+    return str
+        .replace(/<\/?[^>]+(>|$)/gi, "")  // Strip HTML tags
+        .replaceAll('&nbsp;', ' ')        // Remove non-breaking spaces
+        .replaceAll('\n', ' ')            // Replace newlines with spaces
+        .replaceAll('\r', ' ')            // Replace carriage returns with spaces
+        .replaceAll('"', '`')             // Replace double quotes with backticks
+        .replaceAll("'", '`')             // Replace single quotes with backticks
+        .trim();                          // Remove leading/trailing whitespace
+};
+
 module.exports = {
     containsHTMLTags,
-    getEngine
+    getEngine,
+    cleanText
 }

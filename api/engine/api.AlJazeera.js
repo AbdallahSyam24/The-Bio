@@ -14,10 +14,9 @@ const fetchNewsContent = async (page) => {
     return await page.evaluate(() => {
         return {
             'title': [...document.querySelectorAll('.article-header h1')]
-                .map(title => title.innerHTML.replaceAll(/<\/?[^>]+(>|$)/gi, ""))[0].trim(),
+                .map(title => cleanText(title.innerHTML))[0],
             'body': [...document.querySelectorAll('.wysiwyg  p')]
-                .map(body => body.innerHTML.replaceAll(/<\/?[^>]+(>|$)/gi, ""))
-                .map(body => body.replaceAll('&nbsp;', ' '))
+                .map(body => cleanText(body.innerHTML))
                 .join(" ")
                 .trim(),
             'type': 'aljazeera'
