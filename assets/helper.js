@@ -28,16 +28,18 @@ const getEngine = (engine) => {
 }
 
 const cleanText = (str) => {
-    if (!str) return ''; // Safety check for null/undefined
+    if (!str) return '';
 
     return str
-        .replace(/<\/?[^>]+(>|$)/gi, "")  // Strip HTML tags
-        .replaceAll('&nbsp;', ' ')        // Remove non-breaking spaces
-        .replaceAll('\n', ' ')            // Replace newlines with spaces
-        .replaceAll('\r', ' ')            // Replace carriage returns with spaces
-        .replaceAll('"', '`')             // Replace double quotes with backticks
-        .replaceAll("'", '`')             // Replace single quotes with backticks
-        .trim();                          // Remove leading/trailing whitespace
+        .replace(/<\/?[^>]+(>|$)/gi, "")
+        .replaceAll('&nbsp;', ' ')
+        .replaceAll('\\', '')
+        .replaceAll('\n', ' ')
+        .replaceAll('\r', ' ')
+        .replaceAll('"', '`')
+        .replaceAll("'", '`')
+        .replace(/\s\s+/g, ' ')
+        .trim();
 };
 
 module.exports = {
